@@ -10,8 +10,6 @@ import android.widget.TextView;
 public class SmsReceiver extends BroadcastReceiver {
 
 
-
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -33,8 +31,6 @@ public class SmsReceiver extends BroadcastReceiver {
                 // Traitement du SMS ici
                 GlobalClass.Phone.setText(numéro);
                 GlobalClass.Text.setText(texte);
-
-
             }
         }
     }

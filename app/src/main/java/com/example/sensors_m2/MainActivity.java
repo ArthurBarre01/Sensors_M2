@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
+import com.example.sensors_m2.Graphe.MpcharteTemp;
 import com.github.mikephil.charting.data.Entry;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,17 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextMessage;
 
 
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(MainActivity.this, "Bienvenue dans ChatFarm", Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, "Bienvenue dans ChatFarm", Toast.LENGTH_LONG).show();
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
-
 
         //FindViewById :
         editTextMessage = findViewById(R.id.editText);
@@ -47,14 +45,12 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.Ask_Data);
 
 
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Afficher un message lorsque le bouton est cliqué
-                Toast.makeText(MainActivity.this, "Vous avez fait une demande de donnée", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), mpchartexample.class);
+                //Toast.makeText(MainActivity.this, "Vous avez fait une demande de donnée", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), MpcharteTemp.class);
                 startActivity(intent);
             }
         });
@@ -64,14 +60,14 @@ public class MainActivity extends AppCompatActivity {
         String message = editTextMessage.getText().toString();
         String number = editTextNumber.getText().toString();
         String[] text= ProcessSMS(message);
-
-        GlobalClass.values.add(new Entry(Integer.parseInt(text[0]),Integer.parseInt(text[1])));
-
+        GlobalClass.Temp_values.add(new Entry(Integer.parseInt(text[0]),Integer.parseInt(text[1])));
         SmsManager mySmsManager = SmsManager.getDefault();      //on importe l'API dans une variable
         try {
             mySmsManager.sendTextMessage(number,null,message,null,null);
             Log.e(TAG,"Message successfully sent");
             Toast.makeText(MainActivity.this, "SMS envoyé", Toast.LENGTH_SHORT).show();
+            GlobalClass.Temp_values.add(new Entry(Integer.parseInt(text[0]),Integer.parseInt(text[1])));
+
         }
         catch (Exception e) {
             Log.e(TAG,"Couldn't send message, try again");
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         String y;
 
         x= message.substring(0,message.indexOf("/"));
-        y =message.substring(message.indexOf("/"));
+        y =message.substring(message.indexOf("/")+1);
 
 
         return new String[]{x,y};

@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mpchartexample">
+        <activity android:name=".Graphe.MpcharteTemp">
 
         </activity>
         <receiver android:name=".SmsReceiver"

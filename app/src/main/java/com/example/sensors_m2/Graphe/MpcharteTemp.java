@@ -1,4 +1,4 @@
-package com.example.sensors_m2;
+package com.example.sensors_m2.Graphe;
 
 
 import android.content.Intent;
@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.sensors_m2.GlobalClass;
+import com.example.sensors_m2.MainActivity;
+import com.example.sensors_m2.MyMarkerView;
+import com.example.sensors_m2.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -22,16 +26,16 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
-
 import java.util.ArrayList;
 
-public class mpchartexample extends AppCompatActivity {
+public class MpcharteTemp extends AppCompatActivity {
     private LineChart mChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_layout);
+
         mChart = findViewById(R.id.chart);
         mChart.setTouchEnabled(true);
         mChart.setPinchZoom(true);
@@ -41,6 +45,7 @@ public class mpchartexample extends AppCompatActivity {
         renderData();
     }
 
+    // Création du graphe
     public void renderData() {
         LimitLine llXAxis = new LimitLine(10f, "Index 10");
         llXAxis.setLineWidth(4f);
@@ -80,47 +85,35 @@ public class mpchartexample extends AppCompatActivity {
         setData();
     }
 
+
+    //Création des données
     private void setData() {
 
-
-        GlobalClass.values.add(new Entry(1, 50));
-        GlobalClass.values.add(new Entry(2, 100));
-        GlobalClass.values.add(new Entry(3, 80));
-        GlobalClass.values.add(new Entry(4, 120));
-        GlobalClass.values.add(new Entry(5, 110));
-        GlobalClass.values.add(new Entry(7, 150));
-        GlobalClass.values.add(new Entry(8, 250));
-        //GlobalClass.values.add(new Entry(9, 190));
-
         LineDataSet set1;
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
+        LineData set2;
+        if (mChart.getData() != null) {
             set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-            set1.setValues(GlobalClass.values);
+            set2= mChart.getData();
+            set2.clearValues();
+            set1.setValues(GlobalClass.Temp_values);
+            set1.clear();
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
+            mChart.invalidate();
+
         } else {
-            set1 = new LineDataSet(GlobalClass.values, "Sample Data");
+            set1 = new LineDataSet(GlobalClass.Temp_values, "Sample Data");
             set1.setDrawIcons(false);
             set1.enableDashedLine(10f, 5f, 0f);
             set1.enableDashedHighlightLine(10f, 5f, 0f);
             set1.setColor(Color.DKGRAY);
             set1.setCircleColor(Color.DKGRAY);
             set1.setLineWidth(1f);
+
             set1.setCircleRadius(3f);
             set1.setDrawCircleHole(false);
             set1.setValueTextSize(9f);
-            set1.setDrawFilled(true);
-            set1.setFormLineWidth(1f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set1.setFormSize(15.f);
 
-            if (Utils.getSDKInt() >= 18) {
-                Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_blue);
-                set1.setFillDrawable(drawable);
-            } else {
-                set1.setFillColor(Color.DKGRAY);
-            }
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
             LineData data = new LineData(dataSets);
@@ -140,7 +133,7 @@ public class mpchartexample extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id== R.id.actionLogout){
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
