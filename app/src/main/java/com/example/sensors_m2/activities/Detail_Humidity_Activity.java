@@ -1,17 +1,13 @@
-package com.example.sensors_m2.Graphe;
-
+package com.example.sensors_m2.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.sensors_m2.GlobalClass;
 import com.example.sensors_m2.MainActivity;
@@ -21,14 +17,15 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.Utils;
+
 import java.util.ArrayList;
 
-public class MpcharteTemp extends AppCompatActivity {
+public class Detail_Humidity_Activity extends AppCompatActivity {
+
+
     private LineChart mChart;
 
     @Override
@@ -95,14 +92,14 @@ public class MpcharteTemp extends AppCompatActivity {
             set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
             set2= mChart.getData();
             set2.clearValues();
-            set1.setValues(GlobalClass.Temp_values);
+            set1.setValues(GlobalClass.Humidity_values);
             set1.clear();
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
             mChart.invalidate();
 
         } else {
-            set1 = new LineDataSet(GlobalClass.Temp_values, "Sample Data");
+            set1 = new LineDataSet(GlobalClass.Humidity_values, "Humidity Data");
             set1.setDrawIcons(false);
             set1.enableDashedLine(10f, 5f, 0f);
             set1.enableDashedHighlightLine(10f, 5f, 0f);
@@ -137,4 +134,6 @@ public class MpcharteTemp extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

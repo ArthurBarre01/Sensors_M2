@@ -20,8 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Graphe.MpcharteTemp">
-
+        <activity android:name=".activities.Detail_CO2_Activity">
+        </activity>
+        <activity android:name=".activities.Detail_Temp_Activity">
+        </activity>
+        <activity android:name=".activities.Detail_Humidity_Activity">
         </activity>
         <receiver android:name=".SmsReceiver"
             android:exported="true">
