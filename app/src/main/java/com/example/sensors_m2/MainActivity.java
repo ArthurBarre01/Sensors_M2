@@ -21,6 +21,9 @@ import static android.content.ContentValues.TAG;
 import com.example.sensors_m2.Graphe.MpcharteTemp;
 import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
+
+import com.example.sensors_m2.activities.Detail_CO2_Activity;
+import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.github.mikephil.charting.data.Entry;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView check=findViewById(R.id.check);
         ImageView edit=findViewById(R.id.edit);
 
-        Button button = findViewById(R.id.ask_Data);
         Button button_temp=findViewById(R.id.temperature);
         Button button_humid=findViewById(R.id.humidity);
         Button button_CO2=findViewById(R.id.CO2);
@@ -81,19 +83,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        //bouton qui affiche le graphe de données
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Afficher un message lorsque le bouton est cliqué
-                Toast.makeText(MainActivity.this, "Vous avez fait une demande de données", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), MpcharteTemp.class);
-                startActivity(intent);
-            }
-        });
-
         //boutons qui ouvrent une nouvelle fenêtre après appui sur capteur
         button_temp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendSMS(View view) {
         String message = "test";
         String number = editTextNumber.getText().toString();
-        String[] text= ProcessSMS(message);
 
-        GlobalClass.Temp_values.add(new Entry(Integer.parseInt(text[0]),Integer.parseInt(text[1])));
 
         SmsManager mySmsManager = SmsManager.getDefault();      //on importe l'API dans une variable
         try {
@@ -134,20 +121,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Echec de l'envoi", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public String[] ProcessSMS (String message){
-        String x;
-        String y;
-
-        x= message.substring(0,message.indexOf("/"));
-        y =message.substring(message.indexOf("/"));
-
-
-        return new String[]{x,y};
-    }
-
-
-
 
 }
 

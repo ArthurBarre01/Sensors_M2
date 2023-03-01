@@ -7,6 +7,8 @@ import android.provider.Settings;
 import android.telephony.SmsMessage;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.data.Entry;
+
 public class SmsReceiver extends BroadcastReceiver {
 
 
@@ -27,11 +29,24 @@ public class SmsReceiver extends BroadcastReceiver {
             // On parcourt les SMS reçus
             for (SmsMessage message : messages) {
                 String texte = message.getMessageBody();
-                String numéro = message.getOriginatingAddress();
-                // Traitement du SMS ici
-                GlobalClass.Phone.setText(numéro);
-                GlobalClass.Text.setText(texte);
+                String number = message.getOriginatingAddress();
+                if (number.equals(GlobalClass.PHONE_NUMBER)){
+                    // Traitement du SMS ici
+                    String[] text= ProcessSMS(texte);
+                    GlobalClass.Temp_values.add(new Entry(Integer.parseInt(text[0]),Integer.parseInt(text[1])));
+                }
             }
         }
+    }
+
+    public String[] ProcessSMS (String message){
+        String x;
+        String y;
+
+        x= message.substring(0,message.indexOf("/"));
+        y =message.substring(message.indexOf("/"));
+
+
+        return new String[]{x,y};
     }
 }
