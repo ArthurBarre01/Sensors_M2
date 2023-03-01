@@ -7,21 +7,42 @@
     tools:context=".MainActivity">
 
 
+    <ImageView
+        android:id="@+id/eraser"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:enabled="true"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="56dp"
+        android:src="@drawable/ic_baseline_backspace_grey" />
 
     <ImageView
-        android:id="@+id/erase1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="660dp"
-        android:src="@drawable/ic_baseline_backspace_grey" />
+        android:id="@+id/check"
+        android:layout_width="42dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="70dp"
+        app:srcCompat="@drawable/round_check_24" />
+
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_width="37dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="70dp"
+        app:srcCompat="@drawable/round_edit_24" />
 
     <Button
         android:id="@+id/send_sms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="50dp"
         android:layout_marginTop="600dp"
+        android:layout_marginBottom="70dp"
         android:onClick="sendSMS"
         android:text="Send SMS" />
 
@@ -72,10 +93,12 @@
         android:id="@+id/ask_Data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="540dp"
         android:layout_marginEnd="95dp"
-        android:layout_marginBottom="188dp"
+        android:layout_marginBottom="140dp"
         android:text="Afficher un message" />
 
     <Button
@@ -98,12 +121,14 @@
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="650dp"
+        android:layout_marginTop="20dp"
         android:autofillHints=""
         android:ems="10"
         android:gravity="start|top"
-        android:hint="@string/type_your_message"
+        android:hint="Type your number..."
         android:inputType="textMultiLine"
         android:minHeight="48dp"
         android:textColorHint="#757575"
@@ -128,6 +153,8 @@
         android:layout_marginStart="90dp"
         android:layout_marginBottom="413dp"
         android:text="" />
+
+
 
 
 </RelativeLayout>

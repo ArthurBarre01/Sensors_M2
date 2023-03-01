@@ -23,6 +23,7 @@
         <activity android:name=".Graphe.MpcharteTemp">
 
         </activity>
+
         <receiver android:name=".SmsReceiver"
             android:exported="true">
             <intent-filter>

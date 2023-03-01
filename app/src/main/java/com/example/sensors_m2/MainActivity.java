@@ -13,19 +13,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import static android.content.ContentValues.TAG;
 
 import com.example.sensors_m2.Graphe.MpcharteTemp;
-import com.example.sensors_m2.activities.DetailCO2Activity;
-import com.example.sensors_m2.activities.DetailTempActivity;
+import com.example.sensors_m2.activities.Detail_CO2_Activity;
+import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.github.mikephil.charting.data.Entry;
 
 public class MainActivity extends AppCompatActivity {
 
+    //private EditText editTextNumber;
     private EditText editTextNumber;
-    private EditText editTextMessage;
 
 
 
@@ -41,16 +42,44 @@ public class MainActivity extends AppCompatActivity {
 
 
         //FindViewById :
-        editTextMessage = findViewById(R.id.editText);
+        editTextNumber = findViewById(R.id.editText);
 
-        GlobalClass.Phone= findViewById(R.id.textView);
-        GlobalClass.Text = findViewById(R.id.textView2);
+        ImageView eraser=findViewById(R.id.eraser);
+        ImageView check=findViewById(R.id.check);
+        ImageView edit=findViewById(R.id.edit);
 
         Button button = findViewById(R.id.ask_Data);
         Button button_temp=findViewById(R.id.temperature);
         Button button_humid=findViewById(R.id.humidity);
         Button button_CO2=findViewById(R.id.CO2);
         Button button_smoke=findViewById(R.id.smoke);
+
+
+        //bouton qui supprime le contenu de la case EditText
+        eraser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextNumber.setText("");
+            }
+        });
+
+        //bouton qui rend la case de téléphone non modifiable
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextNumber.setEnabled(false);
+                eraser.setEnabled(false);
+            }
+        });
+
+        //bouton qui rend la case de téléphone modifiable
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextNumber.setEnabled(true);
+                eraser.setEnabled(true);
+            }
+        });
 
 
 
@@ -71,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Afficher un message lorsque le bouton est cliqué
                 Toast.makeText(MainActivity.this, "Vous avez fait cliqué sur Température", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), DetailTempActivity.class);
+                Intent intent = new Intent(view.getContext(), Detail_Temp_Activity.class);
                 startActivity(intent);
             }
         });
@@ -81,16 +110,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Afficher un message lorsque le bouton est cliqué
                 Toast.makeText(MainActivity.this, "Vous avez fait cliqué sur CO2", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), DetailCO2Activity.class);
+                Intent intent = new Intent(view.getContext(), Detail_CO2_Activity.class);
                 startActivity(intent);
             }
         });
     }
 
     public void sendSMS(View view) {
-        String message = editTextMessage.getText().toString();
-        String number = "0672428937";
-        //String number = editTextNumber.getText().toString();
+        String message = "test";
+        String number = editTextNumber.getText().toString();
         String[] text= ProcessSMS(message);
 
         GlobalClass.Temp_values.add(new Entry(Integer.parseInt(text[0]),Integer.parseInt(text[1])));
