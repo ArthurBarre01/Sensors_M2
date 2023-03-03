@@ -1,7 +1,6 @@
 package com.example.sensors_m2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import static android.content.ContentValues.TAG;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -16,13 +15,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
-
-import com.example.sensors_m2.Graphe.MpcharteTemp;
-import com.example.sensors_m2.activities.Detail_CO2_Activity;
-import com.example.sensors_m2.activities.Detail_Temp_Activity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.sensors_m2.activities.Detail_CO2_Activity;
+import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.github.mikephil.charting.data.Entry;
 
@@ -55,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Button button_humid=findViewById(R.id.humidity);
         Button button_CO2=findViewById(R.id.CO2);
         Button button_smoke=findViewById(R.id.smoke);
+
 
 
         //bouton qui supprime le contenu de la case EditText
@@ -103,12 +101,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        button_humid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Vous avez fait cliqué sur Humidité", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), Detail_Humidity_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public void sendSMS(View view) {
         String message = "test";
         String number = editTextNumber.getText().toString();
-
 
         SmsManager mySmsManager = SmsManager.getDefault();      //on importe l'API dans une variable
         try {
