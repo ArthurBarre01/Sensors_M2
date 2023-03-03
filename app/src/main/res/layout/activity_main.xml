@@ -115,14 +115,8 @@
         android:id="@+id/RT1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="270dp"
-        android:layout_marginBottom="412dp"
+        android:layout_below="@+id/temperature"
+        android:layout_marginTop="35dp"
         android:text="Real Time (°C):" />
 
     <TextView
@@ -209,12 +203,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="390dp"
         android:layout_marginEnd="287dp"
         android:text="Smoke:" />
 
     <TextView
-        android:id="@+id/state_smoke"
+        android:id="@+id/state_smoke_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
@@ -223,12 +217,27 @@
         android:text="State:" />
 
     <TextView
+        android:id="@+id/state_smoke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="261dp"
+        android:layout_marginTop="470dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="450dp"
+        android:text="" />
+
+    <TextView
         android:id="@+id/RT_smoke"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="290dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="291dp"
         android:layout_marginTop="440dp"
-        android:layout_marginEnd="287dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="450dp"
         android:text="113.76" />
 
 

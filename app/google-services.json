@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663006018582",
+    "project_id": "sensors-m2",
+    "storage_bucket": "sensors-m2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663006018582:android:12926925602181df6c4937",
+        "android_client_info": {
+          "package_name": "com.example.sensors_m2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663006018582-jrhue30p9mqncsc97qqkn37k9hqi48d1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTBzGfLvPEAWve_Tpt3GCewTyc2A8wd0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663006018582-jrhue30p9mqncsc97qqkn37k9hqi48d1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

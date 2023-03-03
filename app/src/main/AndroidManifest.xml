@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_farm"
@@ -13,6 +14,10 @@
         android:theme="@style/Theme.Sensors_M2">
 
         <activity
+            android:name=".activities.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,17 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.Detail_CO2_Activity">
-        </activity>
-        <activity android:name=".activities.Detail_Temp_Activity">
-        </activity>
-        <activity android:name=".activities.Detail_Humidity_Activity">
-        </activity>
+        <activity android:name=".activities.Detail_CO2_Activity"></activity>
+        <activity android:name=".activities.Detail_Temp_Activity"></activity>
+        <activity android:name=".activities.Detail_Humidity_Activity"></activity>
 
-        <receiver android:name=".SmsReceiver"
+        <receiver
+            android:name=".SmsReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
     </application>
