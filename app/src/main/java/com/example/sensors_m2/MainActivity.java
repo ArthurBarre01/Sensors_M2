@@ -1,6 +1,7 @@
 package com.example.sensors_m2;
 
-import static android.content.ContentValues.TAG;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -13,20 +14,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Humidity_Activity;
+import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.github.mikephil.charting.data.Entry;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
     //private EditText editTextNumber;
     private EditText editTextNumber;
+    private String value_smoke="1";
+    private int value_temp;
+    private int value_humid;
+    private int value_CO2;
+
 
 
 
@@ -48,12 +57,28 @@ public class MainActivity extends AppCompatActivity {
         ImageView check=findViewById(R.id.check);
         ImageView edit=findViewById(R.id.edit);
 
+        TextView RT_temp=findViewById(R.id.RT_temp);
+        TextView RT_CO2=findViewById(R.id.RT_CO2);
+        TextView RT_humid=findViewById(R.id.RT_humid);
+        TextView RT_smoke=findViewById(R.id.RT_smoke);
+        TextView smoke_title=findViewById(R.id.smoke_title);
+
         Button button_temp=findViewById(R.id.temperature);
         Button button_humid=findViewById(R.id.humidity);
         Button button_CO2=findViewById(R.id.CO2);
-        Button button_smoke=findViewById(R.id.smoke);
 
 
+        //on affiche sur l'appli la dernière donnée envoyée par le capteur, pour l'instant = A MODIFIER
+        /*
+        RT_CO2.setText(value_CO2);
+        RT_temp.setText(value_temp);
+        RT_humid.setText(value_humid);
+
+         */
+        RT_smoke.setText(value_smoke);
+
+        //on change la taille de police du titre
+        smoke_title.setTextSize(20);
 
         //bouton qui supprime le contenu de la case EditText
         eraser.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendSMS(View view) {
         String message = "test";
         String number = editTextNumber.getText().toString();
+
 
         SmsManager mySmsManager = SmsManager.getDefault();      //on importe l'API dans une variable
         try {
