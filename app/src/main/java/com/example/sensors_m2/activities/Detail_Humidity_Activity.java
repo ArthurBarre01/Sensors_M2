@@ -9,10 +9,11 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sensors_m2.R;
 import com.example.sensors_m2.GlobalClass;
 import com.example.sensors_m2.MainActivity;
 import com.example.sensors_m2.MyMarkerView;
-import com.example.sensors_m2.R;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,7 +32,7 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.data_layout);
+        setContentView(R.layout.humidity_layout);
 
         mChart = findViewById(R.id.chart);
         mChart.setTouchEnabled(true);
@@ -72,7 +73,7 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(350f);
+        leftAxis.setAxisMaximum(300f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -117,7 +118,6 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
             mChart.setData(data);
         }
     }
-
 
     /* ============================ Menu pour faire retour ====================== */
 

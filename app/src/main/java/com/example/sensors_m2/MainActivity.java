@@ -18,7 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
@@ -133,6 +134,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        button_humid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Vous avez fait cliqué sur Humidité", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), Detail_Humidity_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public void sendSMS(View view) {
