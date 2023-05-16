@@ -20,8 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.sql.SQLOutput;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     Button btnConnect;
     EditText inputEmail,inputPassword;
     ProgressDialog progressDialog;
-    FirebaseAuth mAuth,mUser;
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
 
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -45,6 +45,9 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword=findViewById(R.id.inputPassword);
         createAccount=findViewById(R.id.createAccount);
         btnConnect=findViewById(R.id.btnConnect);
+        mAuth=FirebaseAuth.getInstance();
+        mUser=mAuth.getCurrentUser();
+
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
