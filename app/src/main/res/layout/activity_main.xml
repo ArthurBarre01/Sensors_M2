@@ -38,8 +38,8 @@
 
     <Button
         android:id="@+id/temperature"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="47dp"
@@ -49,50 +49,27 @@
 
     <Button
         android:id="@+id/CO2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="216dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="214dp"
+        android:layout_marginTop="149dp"
+        android:layout_marginEnd="58dp"
         android:layout_marginBottom="400dp"
         android:text="CO2" />
 
     <Button
-        android:id="@+id/smoke"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="350dp"
-        android:layout_marginEnd="45dp"
-        android:text="fumée" />
-
-    <Button
         android:id="@+id/humidity"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="47dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/RT1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="47dp"
-        android:layout_marginTop="390dp"
         android:layout_marginBottom="640dp"
         android:text="humidity" />
-
-    <Button
-        android:id="@+id/request1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="600dp"
-        android:text="01" />
-
-    <Button
-        android:id="@+id/request2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="270dp"
-        android:layout_marginTop="600dp"
-        android:text="02" />
 
     <EditText
         android:id="@+id/editText"
@@ -116,49 +93,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/temperature"
-        android:layout_marginTop="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="1dp"
         android:text="Real Time (°C):" />
 
     <TextView
         android:id="@+id/RT_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="215dp"
-        android:layout_marginBottom="412dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="281dp"
+        android:layout_toEndOf="@+id/RT1"
         android:text="25.76" />
 
     <TextView
         android:id="@+id/RT2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="412dp"
+        android:layout_marginTop="282dp"
+        android:layout_marginEnd="91dp"
         android:text="Real Time (ppm):" />
 
     <TextView
         android:id="@+id/RT_CO2"
-        android:layout_width="wrap_content"
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="341dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="412dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="282dp"
+        android:layout_marginEnd="-9dp"
         android:text="32.76" />
 
     <TextView
@@ -167,77 +136,62 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="550dp"
-        android:layout_marginEnd="274dp"
-        android:layout_marginBottom="162dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="460dp"
         android:text="Real Time (%):" />
 
     <TextView
         android:id="@+id/RT_humid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="550dp"
-        android:layout_marginEnd="225dp"
-        android:layout_marginBottom="162dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="462dp"
+        android:layout_toEndOf="@+id/RT3"
         android:text="21.76" />
 
     <TextView
         android:id="@+id/RT4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="220dp"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="287dp"
+        android:layout_marginTop="383dp"
+        android:layout_marginEnd="119dp"
         android:text="Real Time:" />
 
     <TextView
         android:id="@+id/smoke_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="390dp"
-        android:layout_marginEnd="287dp"
-        android:text="Smoke:" />
-
-    <TextView
-        android:id="@+id/state_smoke_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="470dp"
-        android:layout_marginEnd="287dp"
-        android:text="State:" />
+        android:layout_below="@+id/RT2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="117dp"
+        android:text="Smoke:"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/state_smoke"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="147dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/RT2"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="261dp"
-        android:layout_marginTop="470dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="450dp"
-        android:text="" />
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="38dp"
+        android:text="State:" />
 
     <TextView
         android:id="@+id/RT_smoke"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/RT2"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="291dp"
-        android:layout_marginTop="440dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="450dp"
+        android:layout_marginStart="-16dp"
+        android:layout_marginTop="83dp"
+        android:layout_marginEnd="60dp"
         android:text="113.76" />
 
 
@@ -248,10 +202,10 @@
         android:id="@+id/relai"
         android:layout_width="133dp"
         android:layout_height="90dp"
+        android:layout_below="@+id/RT3"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="134dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="227dp"
         android:text="Relai" />
 
 

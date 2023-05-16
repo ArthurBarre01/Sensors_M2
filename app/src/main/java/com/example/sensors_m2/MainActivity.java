@@ -21,18 +21,26 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
+import com.github.mikephil.charting.data.Entry;
+import static android.content.ContentValues.TAG;
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
     //private EditText editTextNumber;
     private EditText editTextNumber;
+
     private double value_smoke = 114.75;
     private int value_temp;
     private int value_humid;
     private int value_CO2;
+
+
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -42,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toast.makeText(MainActivity.this, "Bienvenue dans ChatFarm", Toast.LENGTH_LONG).show();
 
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
 
 
         //FindViewById :
@@ -52,13 +60,11 @@ public class MainActivity extends AppCompatActivity {
         ImageView check = findViewById(R.id.check);
         ImageView edit = findViewById(R.id.edit);
 
-        TextView RT_temp = findViewById(R.id.RT_temp);
-        TextView RT_CO2 = findViewById(R.id.RT_CO2);
-        TextView RT_humid = findViewById(R.id.RT_humid);
-        TextView RT_smoke = findViewById(R.id.RT_smoke);
-
-        TextView smoke_title = findViewById(R.id.smoke_title);
-        TextView state_smoke = findViewById(R.id.state_smoke);
+        TextView RT_temp=findViewById(R.id.RT_temp);
+        TextView RT_CO2=findViewById(R.id.RT_CO2);
+        TextView RT_humid=findViewById(R.id.RT_humid);
+        TextView RT_smoke=findViewById(R.id.RT_smoke);
+        TextView state_smoke=findViewById(R.id.state_smoke);
 
         Button button_temp = findViewById(R.id.temperature);
         Button button_humid = findViewById(R.id.humidity);
@@ -83,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //on change la taille de police du titre
-        smoke_title.setTextSize(20);
+        //smoke_title.setTextSize(20);
 
         //bouton qui supprime le contenu de la case EditText
         eraser.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         button_humid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,14 +146,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
-}
 
-
-
-
-
-/*
     public void sendSMS(View view) {
         String message = "test";
         String number = editTextNumber.getText().toString();
@@ -165,6 +166,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Echec de l'envoi", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
 
-*/
