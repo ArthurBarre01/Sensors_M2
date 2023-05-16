@@ -138,6 +138,7 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         }
         else if (id== R.id.actionLogout) {
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
