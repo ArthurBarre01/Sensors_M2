@@ -98,5 +98,37 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-    }}
+    public void onDebugButtonClick(View view) {
+        String fakeEmail = "debug@debug.com";
+        String fakePassword = "debug123";
+        System.out.println(fakeEmail);
+        System.out.println(fakePassword);
+        progressDialog=new ProgressDialog(this);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInWithEmailAndPassword(fakeEmail, fakePassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
+
+                    //partie qui passe à l'activité suivante après connexion successfull
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+    }
+}
+
+
+
+

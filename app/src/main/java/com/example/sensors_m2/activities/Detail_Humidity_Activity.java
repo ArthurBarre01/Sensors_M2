@@ -22,6 +22,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class Detail_Humidity_Activity extends AppCompatActivity {
@@ -129,11 +133,15 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id== R.id.actionLogout){
+        if(id== R.id.actionBack){
             startActivity(new Intent(this, MainActivity.class));
+        }
+        else if (id== R.id.actionLogout) {
+            FirebaseAuth.getInstance().signOut();
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

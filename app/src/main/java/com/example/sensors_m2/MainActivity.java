@@ -1,16 +1,20 @@
 package com.example.sensors_m2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +29,10 @@ import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
+import com.example.sensors_m2.activities.LoginActivity;
 import com.github.mikephil.charting.data.Entry;
+import com.google.firebase.auth.FirebaseAuth;
+
 import static android.content.ContentValues.TAG;
 import org.w3c.dom.Text;
 
@@ -34,12 +41,10 @@ public class MainActivity extends AppCompatActivity {
     //private EditText editTextNumber;
     private EditText editTextNumber;
 
-    private double value_smoke = 114.75;
+    private double value_smoke = 116;
     private int value_temp;
     private int value_humid;
     private int value_CO2;
-
-
 
 
 
@@ -167,5 +172,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /* ============================ Menu pour faire retour ====================== */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id== R.id.actionBack){
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        else if (id== R.id.actionLogout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, LoginActivity.class));
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
 

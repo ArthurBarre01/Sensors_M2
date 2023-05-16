@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sensors_M2</string>
+    <string name="app_name">SmartFarm</string>
     <string name="send_sms">Send SMS</string>
     <string name="type_the_number">Type the number</string>
     <string name="type_your_message">Type your Message ...</string>

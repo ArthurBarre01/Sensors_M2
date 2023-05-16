@@ -5,9 +5,15 @@
     tools:context="com.example.fridge.MainActivity" >
 
     <item
-        android:id="@+id/actionLogout"
+        android:id="@+id/actionBack"
         android:orderInCategory="100"
         android:title="Retour"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/actionLogout"
+        android:orderInCategory="150"
+        android:title="Se déconnecter"
         app:showAsAction="never" />
 
 </menu>
