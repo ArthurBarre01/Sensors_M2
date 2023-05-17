@@ -108,4 +108,13 @@
         android:textColor="@color/white"
         android:textSize="15sp" />
 
+    <Button
+        android:id="@+id/debugBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="600dp"
+        android:onClick="onDebugButtonClick"
+        android:text="Debug Mode" />
+
 </RelativeLayout>
