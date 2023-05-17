@@ -13,10 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sensors_M2">
 
-        <receiver
-            android:name=".MySmsReceiver"
-            android:enabled="true"
-            android:exported="true">
+
+
+        <receiver android:name=".MySmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
@@ -24,8 +25,7 @@
 
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

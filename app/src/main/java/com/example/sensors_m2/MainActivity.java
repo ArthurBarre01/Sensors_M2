@@ -1,11 +1,13 @@
 package com.example.sensors_m2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,10 +28,16 @@ import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.github.mikephil.charting.data.Entry;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+
 import static android.content.ContentValues.TAG;
 import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     //private EditText editTextNumber;
     private EditText editTextNumber;
@@ -39,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private int value_humid;
     private int value_CO2;
 
+    public static final String TAG = MainActivity.class.getSimpleName();
+    private MySmsReceiver smsReceiver;
 
 
 
@@ -50,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toast.makeText(MainActivity.this, "Bienvenue dans ChatFarm", Toast.LENGTH_LONG).show();
 
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS,Manifest.permission.BROADCAST_SMS}, PackageManager.PERMISSION_GRANTED);
 
 
         //FindViewById :
@@ -168,4 +178,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
 
