@@ -1,7 +1,7 @@
 package com.example.sensors_m2;
 
 
-import android.annotation.TargetApi;
+import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,9 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-    public class MySmsReceiver extends BroadcastReceiver {
+import com.github.mikephil.charting.data.Entry;
+
+public class MySmsReceiver extends BroadcastReceiver {
 
         private static final String TAG = MySmsReceiver.class.getSimpleName();
         public static final String pdu_type = "pdus";
@@ -22,7 +24,9 @@ import android.widget.Toast;
             // Get the SMS message.
             Bundle bundle = intent.getExtras();
             SmsMessage[] msgs;
-            String strMessage = "";
+            String strMessage = null;
+            String dataSms = null;
+            String num=null;
             String format = bundle.getString("format");
 
             // Retrieve the SMS message received.
@@ -44,10 +48,49 @@ import android.widget.Toast;
                     // Build the message to show.
                     strMessage += "SMS from " + msgs[i].getOriginatingAddress();
                     strMessage += " :" + msgs[i].getMessageBody() + "\n";
+                    dataSms=msgs[i].getMessageBody();
+                    num=msgs[i].getOriginatingAddress();
                 }
-                // Log and display the SMS message.
-                Log.d(TAG, "onReceive: " + strMessage);
-                Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+                if(num.equals("0647967364")){
+                    //ProcessSms(dataSms);
+                    // Log and display the SMS message.
+                    Log.d(TAG, "onReceive: " + strMessage);
+                    Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+                }
             }
         }
+
+        private String[] ProcessSms(String msg){
+            String x;
+            String y;
+            String nameData;
+            nameData=msg.substring(0,msg.indexOf(":"));
+            x=msg.substring(msg.indexOf(":")+1,msg.indexOf("/"));
+            y=msg.substring(msg.indexOf("/")+1);
+            Log.d(TAG,"Data : "+nameData);
+            Log.d(TAG, "x : " + x);
+            Log.d(TAG,"y : "+y);
+
+            switch (nameData){
+                case "Temp":
+                    GlobalClass.Temp_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
+
+                    break;
+
+                case "CO2" :
+
+                    break;
+
+                case "Smoke"   :
+
+                    break;
+
+            }
+
+            return new String[0];
+        }
+
+
+
+
     }
