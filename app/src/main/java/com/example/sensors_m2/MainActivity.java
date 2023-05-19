@@ -6,7 +6,6 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -23,19 +22,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_CO2_Activity;
-import com.example.sensors_m2.activities.Detail_Humidity_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.example.sensors_m2.activities.LoginActivity;
-import com.github.mikephil.charting.data.Entry;
+import com.example.sensors_m2.activities.RelaiActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import static android.content.ContentValues.TAG;
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -50,6 +44,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +52,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Toast.makeText(MainActivity.this, "Bienvenue dans ChatFarm", Toast.LENGTH_LONG).show();
 
+
+        //pour forcer la permission de lecture de SMS
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS,Manifest.permission.BROADCAST_SMS}, PackageManager.PERMISSION_GRANTED);
 
 
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity{
         Button button_temp = findViewById(R.id.temperature);
         Button button_humid = findViewById(R.id.humidity);
         Button button_CO2 = findViewById(R.id.CO2);
+        Button button_relai = findViewById(R.id.relai);
 
 
         //on affiche sur l'appli la dernière donnée envoyée par le capteur, pour l'instant = A MODIFIER
@@ -154,6 +152,14 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        button_relai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Vous avez fait cliqué sur Relai", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), RelaiActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

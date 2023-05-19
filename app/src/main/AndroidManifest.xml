@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.RelaiActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"></activity>

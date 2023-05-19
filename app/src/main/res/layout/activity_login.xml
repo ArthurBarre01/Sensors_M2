@@ -113,8 +113,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="520dp"
         android:onClick="onDebugButtonClick"
         android:text="Debug Mode" />
+
+
 
 </RelativeLayout>
