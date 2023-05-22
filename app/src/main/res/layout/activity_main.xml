@@ -106,7 +106,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="281dp"
         android:layout_toEndOf="@+id/RT1"
-        android:text="25.76" />
+        android:text="" />
 
     <TextView
         android:id="@+id/RT2"
@@ -128,7 +128,7 @@
         android:layout_marginStart="328dp"
         android:layout_marginTop="282dp"
         android:layout_marginEnd="-9dp"
-        android:text="32.76" />
+        android:text="" />
 
     <TextView
         android:id="@+id/RT3"
@@ -148,7 +148,7 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="462dp"
         android:layout_toEndOf="@+id/RT3"
-        android:text="21.76" />
+        android:text="" />
 
     <TextView
         android:id="@+id/RT4"

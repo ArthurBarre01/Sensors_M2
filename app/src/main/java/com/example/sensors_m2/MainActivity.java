@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity{
     //private EditText editTextNumber;
     private EditText editTextNumber;
 
-    private double value_smoke = 116;
-    private int value_temp;
-    private int value_humid;
-    private int value_CO2;
+    public double value_smoke = 116;
+    public int value_temp;
+    public int value_humid;
+    public int value_CO2;
 
 
 
@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity{
             state_smoke.setTextColor(Color.GREEN);
         }
 
-        RT_smoke.setText(Float.toString((float) value_smoke));
-        RT_smoke.setText(Float.toString((float) value_smoke));
-        RT_smoke.setText(Float.toString((float) value_smoke));
+        RT_CO2.setText(Float.toString((float) value_CO2));
+        RT_humid.setText(Float.toString((float) value_humid));
+        RT_temp.setText(Float.toString((float) value_temp));
 
 
 

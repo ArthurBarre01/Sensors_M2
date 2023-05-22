@@ -56,6 +56,7 @@ public class MySmsReceiver extends BroadcastReceiver {
                     // Log and display the SMS message.
                     Log.d(TAG, "onReceive: " + strMessage);
                     Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
+                    ProcessSms(dataSms);
                 }
             }
         }
