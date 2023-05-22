@@ -15,5 +15,10 @@ public class GlobalClass {
     public static ArrayList<Entry> Smoke_values = new ArrayList<>();
 
 
+    public static double value_smoke = 116;
+    public static int value_temp;
+    public static int value_humid;
+    public static int value_CO2;
+
 
 }

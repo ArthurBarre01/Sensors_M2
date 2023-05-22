@@ -36,12 +36,15 @@ public class MainActivity extends AppCompatActivity{
     //private EditText editTextNumber;
     private EditText editTextNumber;
 
-    public double value_smoke = 116;
-    public int value_temp;
-    public int value_humid;
-    public int value_CO2;
+
+    //Variable pour les capteurs
 
 
+    //Variable pour afficher les valeurs des différents capteurs
+    public static TextView RT_temp;
+    public static TextView RT_CO2;
+    public static TextView RT_humid;
+    public static TextView RT_smoke;
 
 
 
@@ -64,10 +67,10 @@ public class MainActivity extends AppCompatActivity{
         ImageView check = findViewById(R.id.check);
         ImageView edit = findViewById(R.id.edit);
 
-        TextView RT_temp=findViewById(R.id.RT_temp);
-        TextView RT_CO2=findViewById(R.id.RT_CO2);
-        TextView RT_humid=findViewById(R.id.RT_humid);
-        TextView RT_smoke=findViewById(R.id.RT_smoke);
+        RT_temp=findViewById(R.id.RT_temp);
+        RT_CO2=findViewById(R.id.RT_CO2);
+        RT_humid=findViewById(R.id.RT_humid);
+        RT_smoke=findViewById(R.id.RT_smoke);
         TextView state_smoke=findViewById(R.id.state_smoke);
 
         Button button_temp = findViewById(R.id.temperature);
@@ -76,27 +79,16 @@ public class MainActivity extends AppCompatActivity{
         Button button_relai = findViewById(R.id.relai);
 
 
-        //on affiche sur l'appli la dernière donnée envoyée par le capteur, pour l'instant = A MODIFIER
-        /*
-        RT_CO2.setText(value_CO2);
-        RT_temp.setText(value_temp);
-        RT_humid.setText(value_humid);
 
-         */
-        //gestion de l'affichage du capteur smoke
-        RT_smoke.setText(Float.toString((float) value_smoke));
-        if (value_smoke > 115) {
+        //Gestion de l'affichage des capteurs
+
+        if (GlobalClass.value_smoke > 115) {
             state_smoke.setText("SMOKE DETECTED");
             state_smoke.setTextColor(Color.RED);
         } else {
             state_smoke.setText("NO SMOKE DETECTED");
             state_smoke.setTextColor(Color.GREEN);
         }
-
-        RT_CO2.setText(Float.toString((float) value_CO2));
-        RT_humid.setText(Float.toString((float) value_humid));
-        RT_temp.setText(Float.toString((float) value_temp));
-
 
 
         //bouton qui supprime le contenu de la case EditText
@@ -164,6 +156,12 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        /*
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+         */
     }
 
     public void sendSMS(View view) {
@@ -201,6 +199,11 @@ public class MainActivity extends AppCompatActivity{
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
 
+        }
+        else if(id==R.id.actionRefresh){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

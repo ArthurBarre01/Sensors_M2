@@ -1,6 +1,7 @@
 package com.example.sensors_m2;
 
 
+import android.Manifest;
 import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -77,12 +78,19 @@ public class MySmsReceiver extends BroadcastReceiver {
             switch (nameData){
                 case "Temp":
                     GlobalClass.Temp_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
+                    MainActivity.RT_temp.setText(y);
                     break;
                 case "CO2" :
                     GlobalClass.CO2_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
+                    MainActivity.RT_CO2.setText(y);
                     break;
                 case "Smoke"   :
                     GlobalClass.Smoke_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
+                    MainActivity.RT_smoke.setText(y);
+                    break;
+                case "Humid" :
+                    GlobalClass.Humidity_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
+                    MainActivity.RT_humid.setText(y);
                     break;
             }
             return new String[0];

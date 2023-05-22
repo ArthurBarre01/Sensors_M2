@@ -15,5 +15,9 @@
         android:orderInCategory="150"
         android:title="Se déconnecter"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/actionRefresh"
+        android:orderInCategory="150"
+        android:title="Rafraichir"
+        app:showAsAction="never" />
 </menu>
