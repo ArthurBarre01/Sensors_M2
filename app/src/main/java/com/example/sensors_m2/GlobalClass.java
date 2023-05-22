@@ -12,6 +12,8 @@ public class GlobalClass {
 
     public static ArrayList<Entry> Humidity_values = new ArrayList<>();
 
+    public static ArrayList<Entry> Smoke_values = new ArrayList<>();
+
 
 
 }

@@ -93,8 +93,11 @@ public class MainActivity extends AppCompatActivity{
             state_smoke.setTextColor(Color.GREEN);
         }
 
-        //on change la taille de police du titre
-        //smoke_title.setTextSize(20);
+        RT_smoke.setText(Float.toString((float) value_smoke));
+        RT_smoke.setText(Float.toString((float) value_smoke));
+        RT_smoke.setText(Float.toString((float) value_smoke));
+
+
 
         //bouton qui supprime le contenu de la case EditText
         eraser.setOnClickListener(new View.OnClickListener() {

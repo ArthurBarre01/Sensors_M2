@@ -61,12 +61,14 @@ public class MySmsReceiver extends BroadcastReceiver {
         }
 
         private String[] ProcessSms(String msg){
+
             String x;
             String y;
             String nameData;
             nameData=msg.substring(0,msg.indexOf(":"));
             x=msg.substring(msg.indexOf(":")+1,msg.indexOf("/"));
             y=msg.substring(msg.indexOf("/")+1);
+
             Log.d(TAG,"Data : "+nameData);
             Log.d(TAG, "x : " + x);
             Log.d(TAG,"y : "+y);
@@ -74,19 +76,14 @@ public class MySmsReceiver extends BroadcastReceiver {
             switch (nameData){
                 case "Temp":
                     GlobalClass.Temp_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
-
                     break;
-
                 case "CO2" :
-
+                    GlobalClass.CO2_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
                     break;
-
                 case "Smoke"   :
-
+                    GlobalClass.Smoke_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
                     break;
-
             }
-
             return new String[0];
         }
 
