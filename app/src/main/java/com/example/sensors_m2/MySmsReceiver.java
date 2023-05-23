@@ -79,6 +79,7 @@ public class MySmsReceiver extends BroadcastReceiver {
                 case "Temp":
                     GlobalClass.Temp_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));
                     MainActivity.RT_temp.setText(y);
+                    MainActivity.addCoordinate(Integer.parseInt(x),Integer.parseInt(y));
                     break;
                 case "CO2" :
                     GlobalClass.CO2_values.add(new Entry(Integer.parseInt(x),Integer.parseInt(y)));

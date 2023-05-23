@@ -27,9 +27,20 @@ import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.example.sensors_m2.activities.LoginActivity;
 import com.example.sensors_m2.activities.RelaiActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import static android.content.ContentValues.TAG;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -46,7 +57,13 @@ public class MainActivity extends AppCompatActivity{
     public static TextView RT_humid;
     public static TextView RT_smoke;
 
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+    // Définir le nombre maximal d'éléments dans la liste
+    private static int maxListSize = 10;
+    private static int numero=0;
+    private static CollectionReference coordinatesRef = db.collection("users").document(userId).collection("coordinates");
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -155,13 +172,57 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+    }
 
-        /*
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
+    // Méthode pour ajouter une nouvelle coordonnée
+    public static void addCoordinate(double x, double y) {
+        // Obtenir toutes les coordonnées de l'utilisateur
+        int numdoc=0;
+        coordinatesRef.document(""+numdoc);
+        coordinatesRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
+                Log.d(TAG, "nbre doc: " + documents.size());
+                // Si la liste est pleine (a atteint le nombre maximal d'éléments)
+                if (documents.size() >= maxListSize) {
 
-         */
+                    // Supprimer la première coordonnée (la plus ancienne)
+                    DocumentSnapshot oldestDocument = documents.get(0);
+                    coordinatesRef.document(oldestDocument.getId()).delete();
+                }
+
+                // Décaler les coordonnées existantes vers la fin de la liste
+                for (int i = documents.size() - 1; i > 0; i--) {
+                    DocumentSnapshot currentDocument = documents.get(i);
+                    DocumentSnapshot previousDocument = documents.get(i - 1);
+
+                    double newX = previousDocument.getDouble("x");
+                    double newY = previousDocument.getDouble("y");
+
+                    coordinatesRef.document(currentDocument.getId()).update("x", newX, "y", newY);
+                }
+
+                // Ajouter la nouvelle coordonnée à la fin de la liste
+                Map<String, Object> newCoordinate = new HashMap<>();
+                newCoordinate.put("x", x);
+                newCoordinate.put("y", y);
+
+                coordinatesRef.add(newCoordinate)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                // La coordonnée a été ajoutée avec succès
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Une erreur s'est produite lors de l'ajout de la coordonnée
+                            }
+                        });
+            }
+        });
     }
 
     public void sendSMS(View view) {
