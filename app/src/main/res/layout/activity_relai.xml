@@ -5,4 +5,179 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.RelaiActivity">
 
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="150dp"
+        tools:ignore="MissingConstraints">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="Relai" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="Edit" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF/ ON" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="Envoyer requête" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/relai1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minHeight="48dp"
+                android:enabled="true"
+                android:ems="6"
+                android:padding="10sp"
+                android:hint="Relai 1"
+                tools:ignore="SpeakableTextPresentCheck"/>
+
+            <ImageView
+                android:id="@+id/editBtn1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/round_edit_24" />
+
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:minHeight="48dp"
+                android:showText="false" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="ENVOYER" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/relai2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:padding="10sp"
+                android:hint="Relai 2" />
+
+            <ImageView
+                android:id="@+id/editBtn2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/round_edit_24" />
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="ENVOYER" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/relai3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:padding="10sp"
+                android:hint="Relai 3" />
+
+            <ImageView
+                android:id="@+id/editBtn3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/round_edit_24" />
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="ENVOYER" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/relai4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:padding="10sp"
+                android:hint="Relai 4" />
+
+            <ImageView
+                android:id="@+id/editBtn4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/round_edit_24" />
+
+            <Switch
+                android:id="@+id/switch4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="ENVOYER" />
+        </TableRow>
+    </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

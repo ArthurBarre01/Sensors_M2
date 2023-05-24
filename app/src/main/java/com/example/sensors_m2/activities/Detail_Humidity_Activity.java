@@ -3,8 +3,13 @@ package com.example.sensors_m2.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +37,15 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
 
 
     private LineChart mChart;
+    public static EditText inputMinValue;
+    public static EditText inputMaxValue;
+
+    public static float valuell1;
+    public static float valuell2;
+
+    public static LimitLine ll1;
+
+    public static LimitLine ll2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +53,22 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         setContentView(R.layout.humidity_layout);
 
         mChart = findViewById(R.id.chart);
+        Button btnValidate=findViewById(R.id.validateBtn);
+        inputMinValue=findViewById(R.id.inputMinValue);
+        inputMaxValue=findViewById(R.id.inputMaxValue);
         mChart.setTouchEnabled(true);
         mChart.setPinchZoom(true);
         MyMarkerView mv = new MyMarkerView(getApplicationContext(), R.layout.custom_marker_view);
         mv.setChartView(mChart);
         mChart.setMarker(mv);
         renderData();
+
+        btnValidate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+            }
+        });
     }
 
     // Création du graphe
@@ -61,13 +85,54 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         xAxis.setAxisMinimum(0f);
         xAxis.setDrawLimitLinesBehindData(true);
 
-        LimitLine ll1 = new LimitLine(215f, "Maximum Limit");
+        inputMaxValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Après que le texte a changé
+                String text = inputMaxValue.getText().toString().trim();
+                if (!text.isEmpty()) {
+                    valuell1 = Float.parseFloat(text + "f");
+                }
+            }
+        });
+
+        LimitLine ll1 = new LimitLine(valuell1, "Maximum Limit");
         ll1.setLineWidth(4f);
         ll1.enableDashedLine(10f, 10f, 0f);
         ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         ll1.setTextSize(10f);
 
-        LimitLine ll2 = new LimitLine(70f, "Minimum Limit");
+        inputMinValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Après que le texte a changé
+                String text = inputMinValue.getText().toString().trim();
+                if (!text.isEmpty()) {
+                    valuell2 = Float.parseFloat(text + "f");
+                }
+                else {
+                    valuell2=15f;
+                }
+            }
+        });
+
+        LimitLine ll2 = new LimitLine(valuell2, "Minimum Limit");
         ll2.setLineWidth(4f);
         ll2.enableDashedLine(10f, 10f, 0f);
         ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
@@ -77,7 +142,7 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(300f);
+        leftAxis.setAxisMaximum(60f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -139,6 +204,11 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         else if (id== R.id.actionLogout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
+        }
+        else if(id==R.id.actionRefresh){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

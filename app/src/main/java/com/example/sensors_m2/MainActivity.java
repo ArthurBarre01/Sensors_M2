@@ -45,7 +45,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity{
 
     //private EditText editTextNumber;
-    private EditText editTextNumber;
+    public static EditText editTextNumber;
 
 
     //Variable pour les capteurs
@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity{
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
+
     // Définir le nombre maximal d'éléments dans la liste
     private static int maxListSize = 10;
-    private static int numero=0;
+
     private static CollectionReference coordinatesRef = db.collection("users").document(userId).collection("coordinates");
 
     @SuppressLint("MissingInflatedId")
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity{
 
 
         //FindViewById :
-        editTextNumber = findViewById(R.id.editText);
+        editTextNumber = findViewById(R.id.editTextNumber);
 
         ImageView eraser = findViewById(R.id.eraser);
         ImageView check = findViewById(R.id.check);

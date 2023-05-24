@@ -10,14 +10,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.data.Entry;
 
-public class MySmsReceiver extends BroadcastReceiver {
+public class MySmsReceiver extends BroadcastReceiver  {
 
         private static final String TAG = MySmsReceiver.class.getSimpleName();
         public static final String pdu_type = "pdus";
+
+
 
 
         @Override
@@ -27,7 +32,11 @@ public class MySmsReceiver extends BroadcastReceiver {
             SmsMessage[] msgs;
             String strMessage = null;
             String dataSms = null;
-            String num=null;
+
+            //on récupère le numéro entré par l'utilisateur
+            EditText inputNumber=MainActivity.editTextNumber;
+            String number=inputNumber.getText().toString();
+
             String format = bundle.getString("format");
 
             // Retrieve the SMS message received.
@@ -50,14 +59,17 @@ public class MySmsReceiver extends BroadcastReceiver {
                     strMessage += "SMS from " + msgs[i].getOriginatingAddress();
                     strMessage += " :" + msgs[i].getMessageBody() + "\n";
                     dataSms=msgs[i].getMessageBody();
-                    num=msgs[i].getOriginatingAddress();
+                    number=msgs[i].getOriginatingAddress();
                 }
-                if(num.equals("0647967364")){
+                if(number.matches("\\d{10}")){      //format de 10 chiffres respecté
                     //ProcessSms(dataSms);
                     // Log and display the SMS message.
                     Log.d(TAG, "onReceive: " + strMessage);
                     Toast.makeText(context, strMessage, Toast.LENGTH_LONG).show();
                     ProcessSms(dataSms);
+                }
+                else {
+                    Toast.makeText(context,"Format de numéro incorrect",Toast.LENGTH_LONG).show();
                 }
             }
         }

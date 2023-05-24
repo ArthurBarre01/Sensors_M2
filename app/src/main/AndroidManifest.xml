@@ -33,10 +33,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.RelaiActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"></activity>
+        <activity android:name=".activities.RelaiActivity" />
         <activity android:name=".activities.Detail_CO2_Activity" />
         <activity android:name=".activities.Detail_Temp_Activity" />
         <activity android:name=".activities.Detail_Humidity_Activity" />

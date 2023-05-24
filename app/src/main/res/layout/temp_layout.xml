@@ -8,4 +8,44 @@
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="400dp" />
+
+
+    <EditText
+        android:id="@+id/inputMaxValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:enabled="true"
+        android:gravity="start|top"
+        android:hint="Type maximum limit..."
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textColorHint="#757575" />
+
+    <EditText
+        android:id="@+id/inputMinValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Type minimum limit..."
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textColorHint="#757575" />
+
+    <Button
+        android:id="@+id/validateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Validate data" />
+
 </LinearLayout>

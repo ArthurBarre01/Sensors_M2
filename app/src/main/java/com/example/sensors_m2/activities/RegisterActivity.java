@@ -18,10 +18,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sensors_m2.MainActivity;
 import com.example.sensors_m2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -32,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+
+    FirebaseFirestore db;
 
 
 
@@ -50,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
+        db=FirebaseFirestore.getInstance();
 
 
 
@@ -73,6 +83,25 @@ public class RegisterActivity extends AppCompatActivity {
         String email=inputEmail.getText().toString();
         String password=inputPassword.getText().toString();
         String checkPassword=confirmPassword.getText().toString();
+
+        Map<String,Object> user = new HashMap<>();
+        user.put("Email",email);
+        user.put("Password",password);
+
+        db.collection("user")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(RegisterActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegisterActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
         if (!password.equals(checkPassword)) {
             confirmPassword.setError("Password mismatch");

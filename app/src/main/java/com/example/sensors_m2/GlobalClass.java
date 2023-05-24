@@ -1,5 +1,8 @@
 package com.example.sensors_m2;
 
+import android.widget.EditText;
+import android.widget.Switch;
+
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -20,5 +23,19 @@ public class GlobalClass {
     public static int value_humid;
     public static int value_CO2;
 
+    public static String relai1;
+    public static String relai2;
+    public static String relai3;
+    public static String relai4;
+
+    public static Switch switch1;
+    public static Switch switch2;
+    public static Switch switch3;
+    public static Switch switch4;
+
+    public static boolean isSwitchOn1;
+    public static boolean isSwitchOn2;
+    public static boolean isSwitchOn3;
+    public static boolean isSwitchOn4;
 
 }

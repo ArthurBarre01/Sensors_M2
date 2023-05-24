@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -73,9 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println(password);
         progressDialog=new ProgressDialog(this);
 
-        if (password.isEmpty() && email.isEmpty()){
-            inputPassword.setError("Password mismatch");
+        if (password.isEmpty() || email.isEmpty()){
+            inputPassword.setError("Password or ID mismatch");
         }
+
         else {
             progressDialog.setMessage("Please wait while Login...");
             progressDialog.setTitle("Login");
