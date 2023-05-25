@@ -139,8 +139,8 @@ public class Detail_CO2_Activity  extends AppCompatActivity {
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(60f);
-        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMaximum(2000f);
+        leftAxis.setAxisMinimum(400f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
         leftAxis.setDrawLimitLinesBehindData(false);
@@ -201,6 +201,7 @@ public class Detail_CO2_Activity  extends AppCompatActivity {
         }
         else if (id== R.id.actionLogout) {
             FirebaseAuth.getInstance().signOut();
+            GlobalClass.isUserLoggedIn=false;
             startActivity(new Intent(this, LoginActivity.class));
         }
         else if(id==R.id.actionRefresh){
@@ -210,5 +211,4 @@ public class Detail_CO2_Activity  extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

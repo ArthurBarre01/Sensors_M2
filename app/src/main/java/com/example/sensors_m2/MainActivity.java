@@ -7,7 +7,6 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,13 +26,14 @@ import com.example.sensors_m2.activities.Detail_CO2_Activity;
 import com.example.sensors_m2.activities.Detail_Temp_Activity;
 import com.example.sensors_m2.activities.LoginActivity;
 import com.example.sensors_m2.activities.RelaiActivity;
+import com.github.mikephil.charting.data.Entry;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import static android.content.ContentValues.TAG;
@@ -45,17 +45,15 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity{
 
     //private EditText editTextNumber;
-    public static EditText editTextNumber;
-
-
-    //Variable pour les capteurs
-
+    private EditText editTextNumber;
 
     //Variable pour afficher les valeurs des différents capteurs
     public static TextView RT_temp;
     public static TextView RT_CO2;
     public static TextView RT_humid;
     public static TextView RT_smoke;
+
+    public static TextView state_smoke;
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -66,8 +64,16 @@ public class MainActivity extends AppCompatActivity{
     private static int maxListSize = 10;
 
     private static CollectionReference coordinatesRef = db.collection("users").document(userId).collection("coordinates");
+    private static int numdoc = 0; //On définit l'ordre des messages qu'on a reçu
 
-    @SuppressLint("MissingInflatedId")
+
+    // Utilisez la classe interne pour gérer l'incrémentation de numdoc
+    private static IncrementNumdoc incrementNumdoc = new IncrementNumdoc(numdoc);
+
+
+
+
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,24 +96,22 @@ public class MainActivity extends AppCompatActivity{
         RT_CO2=findViewById(R.id.RT_CO2);
         RT_humid=findViewById(R.id.RT_humid);
         RT_smoke=findViewById(R.id.RT_smoke);
-        TextView state_smoke=findViewById(R.id.state_smoke);
+
+        RT_temp.setText(String.valueOf(GlobalClass.value_temp));
+        RT_CO2.setText(String.valueOf(GlobalClass.value_CO2));
+        RT_humid.setText(String.valueOf(GlobalClass.value_humid));
+        RT_smoke.setText(String.valueOf(GlobalClass.value_smoke));
+
+        state_smoke=findViewById(R.id.state_smoke);
+
+
 
         Button button_temp = findViewById(R.id.temperature);
         Button button_humid = findViewById(R.id.humidity);
         Button button_CO2 = findViewById(R.id.CO2);
         Button button_relai = findViewById(R.id.relai);
 
-
-
         //Gestion de l'affichage des capteurs
-
-        if (GlobalClass.value_smoke > 115) {
-            state_smoke.setText("SMOKE DETECTED");
-            state_smoke.setTextColor(Color.RED);
-        } else {
-            state_smoke.setText("NO SMOKE DETECTED");
-            state_smoke.setTextColor(Color.GREEN);
-        }
 
 
         //bouton qui supprime le contenu de la case EditText
@@ -174,14 +178,43 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+
+        if(!GlobalClass.initialize){
+            recupData("Temp");
+            recupData("CO2");
+            recupData("Humid");
+            recupData("Smoke");
+            GlobalClass.initialize=true;
+        }
     }
 
-    // Méthode pour ajouter une nouvelle coordonnée
-    public static void addCoordinate(double x, double y) {
+    /* ============================ Gestion des données ====================== */
+
+    public static void checkSmoke(int value_smoke, TextView state_smoke){
+
+
+        if (GlobalClass.value_smoke > 115) {
+            state_smoke.setText("SMOKE DETECTED");
+            state_smoke.setTextColor(Color.RED);
+        } else {
+            state_smoke.setText("NO SMOKE DETECTED");
+            state_smoke.setTextColor(Color.GREEN);
+        }
+    }
+
+
+    /* ============================ Gestion de la base de donnée utilisateur ====================== */
+
+
+    // Méthode pour ajouter une nouvelle donnée à la liste
+    public static void addCoordinate(double x, double y,String data) {
+        // On définit le nombre maximal d'éléments dans la liste
+        int maxListSize = 10;
+        CollectionReference collectionRef = db.collection("Data SmartFarm").document(LoginActivity.inputEmail.getText().toString()).collection(data);
+
         // Obtenir toutes les coordonnées de l'utilisateur
-        int numdoc=0;
-        coordinatesRef.document(""+numdoc);
-        coordinatesRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
@@ -191,9 +224,8 @@ public class MainActivity extends AppCompatActivity{
 
                     // Supprimer la première coordonnée (la plus ancienne)
                     DocumentSnapshot oldestDocument = documents.get(0);
-                    coordinatesRef.document(oldestDocument.getId()).delete();
+                    //coordinatesRef.document(oldestDocument.getId()).delete();
                 }
-
                 // Décaler les coordonnées existantes vers la fin de la liste
                 for (int i = documents.size() - 1; i > 0; i--) {
                     DocumentSnapshot currentDocument = documents.get(i);
@@ -202,30 +234,133 @@ public class MainActivity extends AppCompatActivity{
                     double newX = previousDocument.getDouble("x");
                     double newY = previousDocument.getDouble("y");
 
-                    coordinatesRef.document(currentDocument.getId()).update("x", newX, "y", newY);
+                    //coordinatesRef.document(currentDocument.getId()).update("x", newX, "y", newY);
                 }
-
                 // Ajouter la nouvelle coordonnée à la fin de la liste
                 Map<String, Object> newCoordinate = new HashMap<>();
                 newCoordinate.put("x", x);
                 newCoordinate.put("y", y);
 
-                coordinatesRef.add(newCoordinate)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                String documentID="Data n°"+ incrementNumdoc.getNumdoc();
+
+                collectionRef.document(documentID)
+                        .set(newCoordinate)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                // La coordonnée a été ajoutée avec succès
+                            public void onSuccess(Void aVoid) {
+                                // Le document a été ajouté avec succès
+                                Log.d("Firestore", "Document ajouté avec ID : " + documentID);
+                                incrementNumdoc.increment(); // Incrémentation de numdoc
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // Une erreur s'est produite lors de l'ajout de la coordonnée
+                                // Une erreur s'est produite lors de l'ajout du document
+                                Log.e("Firestore", "Erreur lors de l'ajout du document", e);
                             }
                         });
             }
         });
     }
+    // Déclarez une classe interne pour gérer l'incrémentation de numdoc
+    static class IncrementNumdoc {
+        int numdoc;
+
+        public IncrementNumdoc(int numdoc) {
+            this.numdoc = numdoc;
+        }
+
+        public void increment() {
+            numdoc++;
+        }
+
+        public int getNumdoc() {
+            return numdoc;
+        }
+    }
+
+    // Méthode pour prendre les données utilisateurs et initialiser les données
+
+    public static void recupData(String data){
+        CollectionReference collectionRef = db.collection("Data SmartFarm").document(LoginActivity.inputEmail.getText().toString()).collection(data);
+        collectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    Map<String, Object> d=documentSnapshot.getData();
+                    String documentId = documentSnapshot.getId();
+
+                    switch (data.toString()){
+                        case "Temp":
+
+                            GlobalClass.Temp_values.clear();
+                            for (QueryDocumentSnapshot Snapshot : queryDocumentSnapshots) {
+                                Map<String, Object> doc = Snapshot.getData();
+                                int x = (int) extractValue(doc.entrySet().toString(), "x");
+                                int y = (int) extractValue(doc.entrySet().toString(), "y");
+                                GlobalClass.Temp_values.add(new Entry(x, y));
+                                RT_temp.setText(String.valueOf(y));
+                                GlobalClass.value_temp=y;
+                            }
+                            break;
+
+                        case "CO2" :
+
+                            GlobalClass.CO2_values.clear();
+                            for (QueryDocumentSnapshot Snapshot : queryDocumentSnapshots) {
+                                Map<String, Object> doc = Snapshot.getData();
+                                int x = (int) extractValue(doc.entrySet().toString(), "x");
+                                int y = (int) extractValue(doc.entrySet().toString(), "y");
+                                GlobalClass.CO2_values.add(new Entry(x, y));
+                                GlobalClass.value_CO2=y;
+                                RT_CO2.setText(String.valueOf(y));
+                            }
+                            break;
+                        case "Smoke"   :
+
+                            GlobalClass.Smoke_values.clear();
+                            for (QueryDocumentSnapshot Snapshot : queryDocumentSnapshots) {
+                                Map<String, Object> doc = Snapshot.getData();
+                                int x = (int) extractValue(doc.entrySet().toString(), "x");
+                                int y = (int) extractValue(doc.entrySet().toString(), "y");
+                                GlobalClass.Smoke_values.add(new Entry(x, y));
+                                RT_smoke.setText(String.valueOf(y));
+                                GlobalClass.value_smoke=y;
+                                checkSmoke(GlobalClass.value_smoke,MainActivity.state_smoke);
+                            }
+                            break;
+                        case "Humid" :
+
+                            GlobalClass.Humidity_values.clear();
+                            for (QueryDocumentSnapshot Snapshot : queryDocumentSnapshots) {
+                                Map<String, Object> doc = Snapshot.getData();
+                                int x = (int) extractValue(doc.entrySet().toString(), "x");
+                                int y = (int) extractValue(doc.entrySet().toString(), "y");
+                                GlobalClass.Humidity_values.add(new Entry(x, y));
+                                RT_humid.setText(String.valueOf(y));
+                                GlobalClass.value_humid=y;
+                            }
+                            break;
+                    }
+                }
+                for (Entry entry : GlobalClass.Temp_values) {
+                    Log.e("Graphe data","X :"+entry.getX());
+                    Log.e("Graphe data","Y :"+entry.getY());
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Une erreur s'est produite lors de la récupération des coordonnées
+            }
+        });
+    }
+
+
+    /* ============================ Gestion SMS ====================== */
 
     public void sendSMS(View view) {
         String message = "test";
@@ -244,6 +379,30 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+
+    /* ============================ Gestion String ====================== */
+
+    private static double extractValue(String input, String key) {
+        int startIndex = input.indexOf(key + "=");
+        if (startIndex == -1) {
+            // La clé n'a pas été trouvée
+            return 0.0; // Ou une valeur par défaut appropriée dans votre cas
+        }
+        startIndex += key.length() + 1; // Ajoute la longueur de la clé et le signe égal
+
+        int endIndex = input.indexOf(",", startIndex);
+        if (endIndex == -1) {
+            endIndex = input.indexOf("]", startIndex);
+        }
+
+        String valueString = input.substring(startIndex, endIndex).trim();
+        try {
+            return Double.parseDouble(valueString);
+        } catch (NumberFormatException e) {
+            // La valeur n'est pas un nombre valide
+            return 0.0; // Ou une valeur par défaut appropriée dans votre cas
+        }
+    }
     /* ============================ Menu pour faire retour ====================== */
 
     @Override
@@ -260,6 +419,7 @@ public class MainActivity extends AppCompatActivity{
         }
         else if (id== R.id.actionLogout) {
             FirebaseAuth.getInstance().signOut();
+            GlobalClass.isUserLoggedIn=false;
             startActivity(new Intent(this, LoginActivity.class));
 
         }

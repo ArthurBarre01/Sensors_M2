@@ -17,11 +17,19 @@ public class GlobalClass {
 
     public static ArrayList<Entry> Smoke_values = new ArrayList<>();
 
+    public static void clear(){
+        Temp_values.clear();
+        CO2_values.clear();
+        Humidity_values.clear();
+        Smoke_values.clear();
+    }
 
-    public static double value_smoke = 116;
+    public static int value_smoke = 116;
     public static int value_temp;
     public static int value_humid;
     public static int value_CO2;
+    public static boolean initialize=false;
+    public static boolean isUserLoggedIn = false;
 
     public static String relai1;
     public static String relai2;

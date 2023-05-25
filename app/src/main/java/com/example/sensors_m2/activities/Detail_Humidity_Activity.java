@@ -142,7 +142,7 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(60f);
+        leftAxis.setAxisMaximum(100f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -203,6 +203,7 @@ public class Detail_Humidity_Activity extends AppCompatActivity {
         }
         else if (id== R.id.actionLogout) {
             FirebaseAuth.getInstance().signOut();
+            GlobalClass.isUserLoggedIn=false;
             startActivity(new Intent(this, LoginActivity.class));
         }
         else if(id==R.id.actionRefresh){

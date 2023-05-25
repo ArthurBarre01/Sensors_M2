@@ -26,6 +26,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -50,6 +51,7 @@ public class Detail_Temp_Activity  extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.temp_layout);
 
         Button btnValidate=findViewById(R.id.validateBtn);
@@ -149,7 +151,7 @@ public class Detail_Temp_Activity  extends AppCompatActivity{
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(60f);
+        leftAxis.setAxisMaximum(600f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);
@@ -158,7 +160,6 @@ public class Detail_Temp_Activity  extends AppCompatActivity{
         mChart.getAxisRight().setEnabled(false);
         setData();
     }
-
 
     //Création des données
     private void setData() {
@@ -197,7 +198,6 @@ public class Detail_Temp_Activity  extends AppCompatActivity{
 
     //
 
-
     /* ============================ Menu pour faire retour ====================== */
 
     @Override
@@ -213,6 +213,7 @@ public class Detail_Temp_Activity  extends AppCompatActivity{
         }
         else if (id== R.id.actionLogout) {
             FirebaseAuth.getInstance().signOut();
+            GlobalClass.isUserLoggedIn=false;
             startActivity(new Intent(this, LoginActivity.class));
         }
         else if(id==R.id.actionRefresh){
